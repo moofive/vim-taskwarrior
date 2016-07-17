@@ -29,6 +29,8 @@ nnoremap <silent> <buffer> <Plug>(taskwarrior_open_annotate)   :call taskwarrior
 nnoremap <silent> <buffer> <Plug>(taskwarrior_remove)          :call taskwarrior#action#remove()<CR>
 nnoremap <silent> <buffer> <Plug>(taskwarrior_delete)          :call taskwarrior#action#delete()<CR>
 nnoremap <silent> <buffer> <Plug>(taskwarrior_new)             :call taskwarrior#action#new()<CR>
+nnoremap <silent> <buffer> <Plug>(taskwarrior_quick_new)       :call taskwarrior#action#quick_new()<CR>
+nnoremap <silent> <buffer> <Plug>(taskwarrior_new_in_project)  :call taskwarrior#action#new_in_this_project()<CR>
 nnoremap <silent> <buffer> <Plug>(taskwarrior_command)         :call taskwarrior#action#command()<CR>
 nnoremap <silent> <buffer> <Plug>(taskwarrior_done)            :call taskwarrior#action#set_done()<CR>
 nnoremap <silent> <buffer> <Plug>(taskwarrior_report)          :call taskwarrior#action#report()<CR>
@@ -138,6 +140,8 @@ else
     command! -buffer TWDeleteAnnotation  :call taskwarrior#action#annotate('del')
     command! -buffer TWModifyInteractive :call taskwarrior#modify('')
     command! -buffer TWSync              :call taskwarrior#action#sync('sync')
+    command! -buffer TWQuickAdd          :call taskwarrior#action#quick_new()
+    command! -buffer TWAddInProject      :call taskwarrior#action#new_in_this_project()
 endif
 
 command! -buffer TWToggleReadonly    :let g:task_readonly = (g:task_readonly ? 0 : 1) | call taskwarrior#refresh()

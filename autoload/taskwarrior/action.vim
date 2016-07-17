@@ -6,6 +6,17 @@ function! taskwarrior#action#set_done()
     call taskwarrior#system_call(taskwarrior#data#get_uuid(), ' done', '', 'silent')
 endfunction
 
+function! taskwarrior#action#quick_new()
+    call taskwarrior#system_call('', 'add', taskwarrior#data#get_args('add', ['description']), 'echo')
+endfunction
+
+function! taskwarrior#action#new_in_this_project()
+    let cur_project = taskwarrior#data#get_value_by_column(line('.'), 'project')
+    let cur_args = taskwarrior#data#get_args('add', filter(g:task_default_prompt, 'v:val != "project"')) . " project:'" . cur_project . "'"
+
+    call taskwarrior#system_call('', 'add', cur_args, 'echo')
+endfunction
+
 function! taskwarrior#action#urgency() abort
     let cc   = taskwarrior#data#current_column()
     let udas = split(system('task _udas'), '\n')
