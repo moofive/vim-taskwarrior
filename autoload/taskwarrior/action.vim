@@ -17,6 +17,17 @@ function! taskwarrior#action#new_in_this_project()
     call taskwarrior#system_call('', 'add', cur_args, 'echo')
 endfunction
 
+function! taskwarrior#action#new_dependent_task()
+    let uuid = taskwarrior#data#get_uuid()
+    if uuid == ''
+        return
+    endif
+
+    let cur_args = taskwarrior#data#get_args('add', filter(g:task_default_prompt, 'v:val != "depends"')) . " depends:'" . uuid . "'"
+
+    call taskwarrior#system_call('', 'add', cur_args, 'echo')
+endfunction
+
 function! taskwarrior#action#urgency() abort
     let cc   = taskwarrior#data#current_column()
     let udas = split(system('task _udas'), '\n')
